@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>47. Temperature Converter</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 60px; background: #f0f2f5; }
+    .converter { max-width: 400px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    input, select { width: 100%; padding: 15px; margin: 10px 0; font-size: 18px; border-radius: 8px; border: 1px solid #ddd; }
+    button { width: 100%; padding: 15px; background: #e74c3c; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <h1>Harorat Konvertori</h1>
+    <input type="number" id="temp" placeholder="Haroratni kiriting" oninput="convert()">
+    <select id="from" onchange="convert()">
+      <option value="c">Celsius (°C)</option>
+      <option value="f">Fahrenheit (°F)</option>
+      <option value="k">Kelvin (K)</option>
+    </select>
+    <select id="to" onchange="convert()">
+      <option value="f">Fahrenheit (°F)</option>
+      <option value="c">Celsius (°C)</option>
+      <option value="k">Kelvin (K)</option>
+    </select>
+    <h2 id="result">Natija: —</h2>
+  </div>
+
+  <script>
+    function convert() {
+      let value = parseFloat(document.getElementById('temp').value);
+      if (isNaN(value)) return;
+
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      let result = value;
+
+      // Avval Celsius ga o'tkazamiz
+      if (from === 'f') result = (value - 32) * 5/9;
+      if (from === 'k') result = value - 273.15;
+
+      // Keyin kerakli birlikka o'tkazamiz
+      if (to === 'f') result = result * 9/5 + 32;
+      if (to === 'k') result = result + 273.15;
+
+      document.getElementById('result').textContent = `Natija: ${result.toFixed(2)} ${to.toUpperCase()}`;
+    }
+  </script>
+</body>
+</html>
